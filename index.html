@@ -1,760 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Korean Association of Atlanta — 애틀란타 한인회</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;700&family=Noto+Sans+KR:wght@300;400;500&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korean Association of Atlanta</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  :root {
-    --bg: #fefefe;
-    --surface: #f8f6f2;
-    --surface2: #f0ede6;
-    --border: #e8e0d0;
-    --border-strong: #c8bda8;
-    --ink: #1c1814;
-    --ink-light: #6b5e50;
-    --ink-lighter: #a8998a;
-    --red: #cd2b31;
-    --red-light: #fdf0f0;
-    --navy: #1a3258;
-    --navy-light: #edf1f8;
-    --gold: #b8922a;
-    --gold-light: #fdf5e6;
-  }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #fff;
+            color: #202124;
+        }
 
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'Raleway', 'Noto Sans KR', sans-serif;
-    font-weight: 300;
-    line-height: 1.7;
-    min-height: 100vh;
-  }
+        .search-container {
+            max-width: 600px;
+            margin: 100px auto 50px;
+            text-align: center;
+        }
 
-  /* TOP UTILITY BAR */
-  .utility-bar {
-    background: var(--navy);
-    color: rgba(255,255,255,0.65);
-    padding: 6px 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 12px;
-  }
-  .utility-bar a { color: rgba(255,255,255,0.65); text-decoration: none; margin-left: 1.5rem; }
-  .utility-bar a:hover { color: white; }
-  .language-toggle {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: white;
-    padding: 2px 10px;
-    font-size: 11px;
-    cursor: pointer;
-    font-family: 'Noto Sans KR', sans-serif;
-  }
+        .search-title {
+            font-size: 72px;
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: #4285f4;
+        }
 
-  /* NAV */
-  nav {
-    background: white;
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    height: 70px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 1px 8px rgba(0,0,0,0.04);
-  }
-  .nav-logo {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-right: 3rem;
-    text-decoration: none;
-  }
-  .nav-logo-en {
-    font-family: 'Raleway', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--navy);
-    letter-spacing: 0.03em;
-    line-height: 1.2;
-  }
-  .nav-logo-kr {
-    font-family: 'Noto Serif KR', serif;
-    font-size: 12px;
-    color: var(--red);
-    letter-spacing: 0.05em;
-    line-height: 1.2;
-  }
-  nav ul { display: flex; gap: 0; list-style: none; flex: 1; }
-  nav ul a {
-    color: var(--ink-light);
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 400;
-    padding: 0 1.1rem;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    border-bottom: 3px solid transparent;
-    transition: all 0.2s;
-    letter-spacing: 0.02em;
-  }
-  nav ul a:hover { color: var(--navy); border-bottom-color: var(--red); }
-  .nav-cta {
-    background: var(--red);
-    color: white;
-    border: none;
-    padding: 9px 22px;
-    font-family: 'Raleway', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s;
-    white-space: nowrap;
-    margin-left: auto;
-  }
-  .nav-cta:hover { background: var(--navy); }
+        .search-box {
+            display: flex;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            padding: 10px 20px;
+            width: 100%;
+            transition: box-shadow 0.2s;
+        }
 
-  /* HERO */
-  .hero {
-    background: var(--navy);
-    color: white;
-    padding: 5rem 2rem;
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-  }
-  .hero::before {
-    content: '태극기 ✦ 성조기 ✦ 한인회 ✦ 커뮤니티 ✦ 문화 ✦ 연대';
-    position: absolute;
-    top: 18px;
-    left: 0; right: 0;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    opacity: 0.12;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-  .hero-inner { max-width: 700px; margin: 0 auto; position: relative; }
-  .hero-flag {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    letter-spacing: 0.5rem;
-  }
-  .hero-kr {
-    font-family: 'Noto Serif KR', serif;
-    font-size: clamp(1.2rem, 3vw, 2rem);
-    font-weight: 300;
-    letter-spacing: 0.1em;
-    opacity: 0.75;
-    margin-bottom: 0.5rem;
-  }
-  .hero h1 {
-    font-family: 'Raleway', sans-serif;
-    font-size: clamp(1.8rem, 4vw, 3rem);
-    font-weight: 300;
-    letter-spacing: 0.02em;
-    margin-bottom: 1.5rem;
-    line-height: 1.3;
-  }
-  .hero-sub {
-    font-size: 1rem;
-    opacity: 0.7;
-    margin-bottom: 2.5rem;
-    font-weight: 300;
-  }
-  .hero-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-  .btn-white {
-    background: white;
-    color: var(--navy);
-    border: none;
-    padding: 12px 30px;
-    font-family: 'Raleway', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: opacity 0.2s;
-  }
-  .btn-white:hover { opacity: 0.9; }
-  .btn-outline-w {
-    background: transparent;
-    color: white;
-    border: 1px solid rgba(255,255,255,0.4);
-    padding: 12px 30px;
-    font-family: 'Raleway', sans-serif;
-    font-size: 14px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: border-color 0.2s;
-  }
-  .btn-outline-w:hover { border-color: white; }
+        .search-box:hover {
+            box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+        }
 
-  /* STATS BAND */
-  .stats-band {
-    background: var(--red);
-    color: white;
-    padding: 2rem;
-    display: flex;
-    justify-content: center;
-    gap: 0;
-  }
-  .stat-item {
-    text-align: center;
-    padding: 0 3rem;
-    border-right: 1px solid rgba(255,255,255,0.2);
-  }
-  .stat-item:last-child { border-right: none; }
-  .stat-num {
-    font-family: 'Raleway', sans-serif;
-    font-size: 2rem;
-    font-weight: 300;
-    line-height: 1.1;
-  }
-  .stat-label { font-size: 12px; opacity: 0.8; letter-spacing: 0.05em; margin-top: 4px; }
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            padding: 5px 10px;
+        }
 
-  /* CONTENT */
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
-  .main-layout {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 4rem;
-    padding: 4rem 0;
-  }
+        .search-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
 
-  /* EVENTS */
-  .section-title {
-    font-family: 'Raleway', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--ink-lighter);
-    border-bottom: 2px solid var(--navy);
-    padding-bottom: 0.75rem;
-    margin-bottom: 2rem;
-  }
-  .events-list { display: flex; flex-direction: column; gap: 1px; }
-  .event-card {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    display: grid;
-    grid-template-columns: 80px 1fr;
-    transition: border-color 0.2s;
-    cursor: pointer;
-  }
-  .event-card:hover { border-color: var(--navy); }
-  .event-date-box {
-    background: var(--navy);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    text-align: center;
-  }
-  .event-month {
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    opacity: 0.7;
-    font-weight: 400;
-  }
-  .event-day {
-    font-family: 'Raleway', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 300;
-    line-height: 1;
-  }
-  .event-info { padding: 1rem 1.25rem; }
-  .event-tag {
-    display: inline-block;
-    background: var(--red-light);
-    color: var(--red);
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 2px 8px;
-    margin-bottom: 6px;
-    font-weight: 500;
-  }
-  .event-info h3 {
-    font-family: 'Raleway', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 500;
-    margin-bottom: 4px;
-    color: var(--ink);
-  }
-  .event-info p {
-    font-size: 12px;
-    color: var(--ink-lighter);
-  }
+        .results-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-  /* PROGRAMS */
-  .programs-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-top: 2.5rem;
-  }
-  .program-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 1.5rem;
-    transition: border-color 0.2s;
-    cursor: pointer;
-  }
-  .program-card:hover { border-color: var(--gold); }
-  .program-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
-  .program-card h4 {
-    font-family: 'Raleway', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-bottom: 4px;
-    color: var(--ink);
-  }
-  .program-card p { font-size: 0.8rem; color: var(--ink-light); line-height: 1.6; }
+        .result-item {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e8e8e8;
+        }
 
-  /* SIDEBAR */
-  .sidebar-widget {
-    margin-bottom: 2.5rem;
-  }
-  .widget-box {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 1.5rem;
-  }
-  .widget-box h3 {
-    font-family: 'Noto Serif KR', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 0.5rem;
-  }
-  .widget-box p { font-size: 0.875rem; color: var(--ink-light); line-height: 1.7; }
-  .contact-list { list-style: none; margin-top: 1rem; display: flex; flex-direction: column; gap: 8px; }
-  .contact-list li {
-    display: grid;
-    grid-template-columns: 80px 1fr;
-    font-size: 13px;
-    gap: 8px;
-    align-items: baseline;
-  }
-  .contact-key { color: var(--ink-lighter); font-size: 11px; letter-spacing: 0.05em; }
-  .contact-val { color: var(--ink); }
-  .join-box {
-    background: var(--gold-light);
-    border: 1px solid var(--gold);
-    padding: 1.5rem;
-  }
-  .join-box h3 {
-    font-family: 'Raleway', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--gold);
-    margin-bottom: 0.5rem;
-  }
-  .join-box p { font-size: 0.85rem; color: var(--ink-light); margin-bottom: 1rem; line-height: 1.6; }
-  .btn-gold {
-    background: var(--gold);
-    color: white;
-    border: none;
-    padding: 9px 20px;
-    font-family: 'Raleway', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    width: 100%;
-    transition: opacity 0.2s;
-  }
-  .btn-gold:hover { opacity: 0.85; }
-  .news-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
-  .news-item {
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
-    cursor: pointer;
-  }
-  .news-item:last-child { border-bottom: none; }
-  .news-item-date { font-size: 10px; color: var(--ink-lighter); letter-spacing: 0.05em; margin-bottom: 3px; }
-  .news-item a {
-    text-decoration: none;
-    color: var(--ink);
-    font-size: 0.85rem;
-    line-height: 1.5;
-    font-weight: 400;
-    transition: color 0.2s;
-  }
-  .news-item a:hover { color: var(--red); }
+        .result-item:last-child {
+            border-bottom: none;
+        }
 
-  /* CULTURE BAND */
-  .culture-band {
-    background: var(--surface2);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 4rem 2rem;
-    text-align: center;
-  }
-  .culture-inner { max-width: 900px; margin: 0 auto; }
-  .culture-kr {
-    font-family: 'Noto Serif KR', serif;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 0.5rem;
-    letter-spacing: 0.2em;
-  }
-  .culture-en {
-    font-family: 'Raleway', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 300;
-    color: var(--ink-lighter);
-    letter-spacing: 0.15em;
-    margin-bottom: 2.5rem;
-  }
-  .culture-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-  }
-  .culture-card {
-    background: white;
-    border: 1px solid var(--border);
-    padding: 1.75rem 1rem;
-    text-align: center;
-    transition: border-color 0.2s;
-    cursor: pointer;
-  }
-  .culture-card:hover { border-color: var(--red); }
-  .culture-card-icon { font-size: 2rem; margin-bottom: 0.75rem; }
-  .culture-card-kr {
-    font-family: 'Noto Serif KR', serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 4px;
-  }
-  .culture-card-en { font-size: 12px; color: var(--ink-lighter); }
+        .result-title {
+            font-size: 18px;
+            color: #1a0dab;
+            text-decoration: none;
+            cursor: pointer;
+            display: block;
+            margin-bottom: 5px;
+        }
 
-  /* FOOTER */
-  footer {
-    background: var(--navy);
-    color: rgba(255,255,255,0.65);
-    padding: 3rem 2rem 2rem;
-  }
-  .footer-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 3rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-  .footer-brand-en {
-    font-family: 'Raleway', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: white;
-    margin-bottom: 4px;
-  }
-  .footer-brand-kr {
-    font-family: 'Noto Serif KR', serif;
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 1rem;
-    letter-spacing: 0.1em;
-  }
-  .footer-about { font-size: 13px; line-height: 1.7; }
-  .footer-col h4 {
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
-    margin-bottom: 1rem;
-    font-weight: 400;
-  }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
-  .footer-col ul a {
-    color: rgba(255,255,255,0.6);
-    text-decoration: none;
-    font-size: 13px;
-    transition: color 0.2s;
-  }
-  .footer-col ul a:hover { color: white; }
-  .footer-bottom {
-    max-width: 1100px;
-    margin: 1.5rem auto 0;
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
+        .result-title:hover {
+            text-decoration: underline;
+        }
 
-  @media (max-width: 768px) {
-    .main-layout { grid-template-columns: 1fr; }
-    .culture-grid { grid-template-columns: repeat(2, 1fr); }
-    .programs-grid { grid-template-columns: 1fr; }
-    .footer-inner { grid-template-columns: 1fr; }
-    nav ul { display: none; }
-    .stats-band { flex-wrap: wrap; }
-    .stat-item { border-right: none; padding: 0.5rem 1.5rem; }
-  }
-</style>
+        .result-url {
+            font-size: 13px;
+            color: #006621;
+            margin-bottom: 8px;
+        }
+
+        .result-description {
+            font-size: 14px;
+            color: #4d5156;
+            line-height: 1.6;
+        }
+
+        .result-meta {
+            font-size: 12px;
+            color: #70757a;
+            margin-top: 5px;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #70757a;
+            margin-top: 50px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-
-<div class="utility-bar">
-  <span>Serving Atlanta's Korean community since 1971</span>
-  <div>
-    <button class="language-toggle">한국어</button>
-    <a href="#">Member login</a>
-    <a href="#">Contact</a>
-  </div>
-</div>
-
-<nav>
-  <a href="#" class="nav-logo">
-    <div class="nav-logo-en">Korean Association of Atlanta</div>
-    <div class="nav-logo-kr">애틀란타 한인회</div>
-  </a>
-  <ul>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Events</a></li>
-    <li><a href="#">Programs</a></li>
-    <li><a href="#">Community</a></li>
-    <li><a href="#">Resources</a></li>
-    <li><a href="#">News</a></li>
-  </ul>
-  <button class="nav-cta">Become a Member</button>
-</nav>
-
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-flag">🇰🇷 🇺🇸</div>
-    <div class="hero-kr">애틀란타 한인회에 오신 것을 환영합니다</div>
-    <h1>Korean Association<br>of Atlanta</h1>
-    <div class="hero-sub">Connecting, celebrating, and serving the Korean community across metro Atlanta since 1971.</div>
-    <div class="hero-btns">
-      <a href="#" class="btn-white">Join Our Community</a>
-      <a href="#" class="btn-outline-w">View Upcoming Events</a>
+    <div class="search-container">
+        <div class="search-title">KAA</div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search events and resources..." autofocus>
+            <button class="search-button">⌕</button>
+        </div>
     </div>
-  </div>
-</section>
 
-<div class="stats-band">
-  <div class="stat-item">
-    <div class="stat-num">5,200+</div>
-    <div class="stat-label">Member Households</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num">53</div>
-    <div class="stat-label">Years Serving Atlanta</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num">40+</div>
-    <div class="stat-label">Annual Programs</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num">12</div>
-    <div class="stat-label">Partner Organizations</div>
-  </div>
-</div>
+    <div class="results-container" id="resultsContainer"></div>
 
-<div class="container">
-  <div class="main-layout">
-    <main>
-      <div class="section-title">Upcoming Events — 행사 일정</div>
-      <div class="events-list">
-        <div class="event-card">
-          <div class="event-date-box">
-            <div class="event-month">Apr</div>
-            <div class="event-day">19</div>
-          </div>
-          <div class="event-info">
-            <span class="event-tag">Cultural</span>
-            <h3>Spring Hansik Festival — 봄 한식 축제</h3>
-            <p>Duluth Civic Center · 11:00 AM — 6:00 PM · Free admission</p>
-          </div>
-        </div>
-        <div class="event-card">
-          <div class="event-date-box">
-            <div class="event-month">Apr</div>
-            <div class="event-day">26</div>
-          </div>
-          <div class="event-info">
-            <span class="event-tag">Youth</span>
-            <h3>Korean Youth Leadership Summit 2025</h3>
-            <p>Gwinnett Convention Center · 9:00 AM — 5:00 PM · Registration required</p>
-          </div>
-        </div>
-        <div class="event-card">
-          <div class="event-date-box">
-            <div class="event-month">May</div>
-            <div class="event-day">10</div>
-          </div>
-          <div class="event-info">
-            <span class="event-tag">Community</span>
-            <h3>Annual General Meeting & Board Elections — 정기 총회</h3>
-            <p>KAA Community Center · 2:00 PM · Members only</p>
-          </div>
-        </div>
-        <div class="event-card">
-          <div class="event-date-box">
-            <div class="event-month">May</div>
-            <div class="event-day">18</div>
-          </div>
-          <div class="event-info">
-            <span class="event-tag">Health</span>
-            <h3>Free Community Health Screening — 건강 검진</h3>
-            <p>Doraville Community Church · 10:00 AM — 3:00 PM · Open to all</p>
-          </div>
-        </div>
-      </div>
+    <script>
+        const content = [
+            {
+                title: "Chuseok celebration and family gathering",
+                category: "Events",
+                description: "Join our annual Chuseok festival celebrating Korean harvest traditions. Food, games, and cultural performances.",
+                replies: 87
+            },
+            {
+                title: "Korean language classes for children",
+                category: "Education",
+                description: "Weekly classes teaching Korean language and cultural heritage to second-generation children.",
+                replies: 56
+            },
+            {
+                title: "Business networking meetup",
+                category: "Networking",
+                description: "Monthly gathering for Korean business professionals in Atlanta to connect and share opportunities.",
+                replies: 34
+            },
+            {
+                title: "Korean food festival in Buford Highway",
+                category: "Culture",
+                description: "Celebrating authentic Korean cuisine with local restaurants and cultural demonstrations.",
+                replies: 102
+            },
+            {
+                title: "Immigration and citizenship resources",
+                category: "Resources",
+                description: "Information and support for immigration matters, citizenship applications, and legal resources.",
+                replies: 28
+            },
+            {
+                title: "Youth sports leagues and activities",
+                category: "Youth",
+                description: "Soccer, badminton, and other sports programs for Korean youth in the Atlanta area.",
+                replies: 45
+            },
+            {
+                title: "Alumni network and mentorship program",
+                category: "Mentoring",
+                description: "Connecting professionals and students for career guidance and mentorship opportunities.",
+                replies: 31
+            }
+        ];
 
-      <div class="section-title" style="margin-top:3rem;">Our Programs — 주요 프로그램</div>
-      <div class="programs-grid">
-        <div class="program-card">
-          <div class="program-icon">📚</div>
-          <h4>Korean Language School</h4>
-          <p>Weekend classes for all ages, from beginners to heritage learners. 한국어 학교</p>
-        </div>
-        <div class="program-card">
-          <div class="program-icon">🤝</div>
-          <h4>New Immigrant Support</h4>
-          <p>Settlement assistance, translation services, and cultural orientation for newcomers.</p>
-        </div>
-        <div class="program-card">
-          <div class="program-icon">🎓</div>
-          <h4>Scholarship Program</h4>
-          <p>Annual scholarships for Korean-American students attending Georgia universities.</p>
-        </div>
-        <div class="program-card">
-          <div class="program-icon">👴</div>
-          <h4>Senior Services</h4>
-          <p>Korean-language senior programs, social gatherings, and wellness support. 경로회</p>
-        </div>
-      </div>
-    </main>
+        const searchInput = document.getElementById('searchInput');
+        const resultsContainer = document.getElementById('resultsContainer');
 
-    <aside>
-      <div class="sidebar-widget">
-        <div class="join-box">
-          <h3>Become a Member</h3>
-          <p>Join the Korean Association of Atlanta and connect with our vibrant community. Members receive discounts on events, access to programs, and a vote at general meetings.</p>
-          <button class="btn-gold">Apply for Membership</button>
-        </div>
-      </div>
+        function renderResults(query) {
+            resultsContainer.innerHTML = '';
 
-      <div class="sidebar-widget">
-        <div class="section-title" style="margin-bottom:1rem;">Contact Us — 연락처</div>
-        <div class="widget-box">
-          <ul class="contact-list">
-            <li><span class="contact-key">Address</span><span class="contact-val">5301 Buford Hwy, Doraville, GA 30340</span></li>
-            <li><span class="contact-key">Phone</span><span class="contact-val">(770) 455-0100</span></li>
-            <li><span class="contact-key">Email</span><span class="contact-val">info@kaatlanta.org</span></li>
-            <li><span class="contact-key">Hours</span><span class="contact-val">Mon–Fri 10AM–5PM</span></li>
-          </ul>
-        </div>
-      </div>
+            if (!query.trim()) {
+                return;
+            }
 
-      <div class="sidebar-widget">
-        <div class="section-title" style="margin-bottom:1rem;">Community News</div>
-        <ul class="news-list">
-          <li class="news-item">
-            <div class="news-item-date">April 5, 2025</div>
-            <a href="#">KAA partners with Gwinnett County Schools for Korean culture curriculum</a>
-          </li>
-          <li class="news-item">
-            <div class="news-item-date">March 28, 2025</div>
-            <a href="#">2025 scholarship applications now open — 장학금 신청 접수</a>
-          </li>
-          <li class="news-item">
-            <div class="news-item-date">March 15, 2025</div>
-            <a href="#">Celebrating 삼일절: over 800 community members attend independence day event</a>
-          </li>
-          <li class="news-item">
-            <div class="news-item-date">March 2, 2025</div>
-            <a href="#">New Korean language weekend class enrollments open for spring term</a>
-          </li>
-        </ul>
-      </div>
-    </aside>
-  </div>
-</div>
+            const filtered = content.filter(item =>
+                item.title.toLowerCase().includes(query.toLowerCase()) ||
+                item.description.toLowerCase().includes(query.toLowerCase()) ||
+                item.category.toLowerCase().includes(query.toLowerCase())
+            );
 
-<div class="culture-band">
-  <div class="culture-inner">
-    <div class="culture-kr">한국 문화</div>
-    <div class="culture-en">Korean Culture & Heritage</div>
-    <div class="culture-grid">
-      <div class="culture-card">
-        <div class="culture-card-icon">🥢</div>
-        <div class="culture-card-kr">음식</div>
-        <div class="culture-card-en">Korean Cuisine</div>
-      </div>
-      <div class="culture-card">
-        <div class="culture-card-icon">🎎</div>
-        <div class="culture-card-kr">전통</div>
-        <div class="culture-card-en">Traditions</div>
-      </div>
-      <div class="culture-card">
-        <div class="culture-card-icon">🎵</div>
-        <div class="culture-card-kr">음악</div>
-        <div class="culture-card-en">Music & Arts</div>
-      </div>
-      <div class="culture-card">
-        <div class="culture-card-icon">📖</div>
-        <div class="culture-card-kr">역사</div>
-        <div class="culture-card-en">History</div>
-      </div>
-    </div>
-  </div>
-</div>
+            if (filtered.length === 0) {
+                resultsContainer.innerHTML = '<div class="no-results">No results found</div>';
+                return;
+            }
 
-<footer>
-  <div class="footer-inner">
-    <div>
-      <div class="footer-brand-en">Korean Association of Atlanta</div>
-      <div class="footer-brand-kr">애틀란타 한인회</div>
-      <p class="footer-about">Founded in 1971, the Korean Association of Atlanta serves metro Atlanta's Korean and Korean-American community through cultural programs, social services, advocacy, and community building. We are a non-partisan, non-profit organization.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Quick Links</h4>
-      <ul>
-        <li><a href="#">About KAA</a></li>
-        <li><a href="#">Board of Directors</a></li>
-        <li><a href="#">Events Calendar</a></li>
-        <li><a href="#">Programs</a></li>
-        <li><a href="#">Membership</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Resources</h4>
-      <ul>
-        <li><a href="#">Korean Language School</a></li>
-        <li><a href="#">New Immigrant Guide</a></li>
-        <li><a href="#">Business Directory</a></li>
-        <li><a href="#">Scholarship Info</a></li>
-        <li><a href="#">한국어 페이지</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2025 Korean Association of Atlanta. All rights reserved.</span>
-    <span>5301 Buford Hwy, Doraville, GA · (770) 455-0100 · info@kaatlanta.org</span>
-  </div>
-</footer>
+            filtered.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'result-item';
+                div.innerHTML = `
+                    <a class="result-title">${item.title}</a>
+                    <div class="result-url">kaa-atlanta.org › ${item.category.toLowerCase()}</div>
+                    <div class="result-description">${item.description}</div>
+                    <div class="result-meta">${item.replies} replies</div>
+                `;
+                resultsContainer.appendChild(div);
+            });
+        }
 
+        searchInput.addEventListener('input', (e) => {
+            renderResults(e.target.value);
+        });
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+            }
+        });
+    </script>
 </body>
 </html>
